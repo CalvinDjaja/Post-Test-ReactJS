@@ -12,8 +12,7 @@ const App = () => {
   const [searchValue, setSearchValue] = useState("");
   const [addedItems, setAddedItem] = useState([]);
   const [showAddProducts, setShowAddProducts] = useState(false);
-
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("electronics");
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/")
@@ -21,19 +20,18 @@ const App = () => {
       .then((data) => setItem(data));
   }, []);
 
-  function handleCategoryChange(e) {
-    setSelectedCategory(e.target.value);
+  function handleCategoryChange(event) {
+    setSelectedCategory(event.target.value);
   }
 
   function changingSearchData(e) {
     setSearchValue(e.target.value);
   }
 
-  const itmesFilter = items
-    .filter((item) =>
-      item.title.toLowerCase().includes(searchValue.toLowerCase())
-    )
-    .filter((item) => item.category === selectedCategory);
+  const itmesFilter = items.filter((item) =>
+    item.title.toLowerCase().includes(searchValue.toLowerCase())
+  )
+  .filter((item) => item.category === selectedCategory);
 
   function addItem(item) {
     item.addNumber = 1;
@@ -59,10 +57,9 @@ const App = () => {
           <Button num={addedItems.length} click={setShowAddProducts} />
         </div>
       </div>
-      <Category
-        onChange={handleCategoryChange}
-      />
-
+      
+      <Category onChange={handleCategoryChange}/>
+      {setSelectedCategory}
       {showAddProducts && (
         <AddProducts
           click={setShowAddProducts}

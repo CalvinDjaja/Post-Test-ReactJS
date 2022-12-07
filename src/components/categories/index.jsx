@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-const Categories = (onChangeData) => {
+const Categories = ({onChange}) => {
   const [category, setCategory] = useState([]);
-
+  
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/categories")
       .then((res) => res.json())
@@ -13,7 +13,7 @@ const Categories = (onChangeData) => {
   return (
     <div className="category__container">
       <label for="cars">Choose a category:</label>
-      <select name="cars" id="cars" onChange={onChangeData}>
+      <select name="cars" id="cars" onChange={onChange}>
         {category?.map((item) => {
           return <option value={item}>{item}</option>;
         })}
